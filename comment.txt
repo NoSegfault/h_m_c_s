@@ -1,4 +1,4 @@
-1. Mathematical expressions for all the cost functions are presented in "precreateClustersUniversalHypergraph"
+1. Mathematical expressions for all the cost functions are presented in "createClustersUniversalHypergraph"
 	Conductance is in line 44
 	Zhou's cut is in line 51
 
