@@ -5,15 +5,15 @@ import itertools
 # motif M6
 
 def main():
-    filename = "Florida-bay.txt"
-    n = 128
+    filename = "test_toy.txt"
+    n = 7
 
     with open(filename) as f:
         content = f.readlines()
 
     content = [x.strip() for x in content]
     v_to = {}
-    for line in content[5:]:
+    for line in content[1:]:
         pair = line.split()
         if int(pair[0]) not in v_to:
             v_to[int(pair[0])]=[]
