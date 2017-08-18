@@ -1,26 +1,27 @@
 import numpy as np
 import sys
 import itertools
+import csv
 
 # motif M6
 
 def main():
-    filename = "test_toy.txt"
-    n = 7
+    filename = "Florida-bay.txt"
+    n = 128
 
     with open(filename) as f:
         content = f.readlines()
 
     content = [x.strip() for x in content]
     v_to = {}
-    for line in content[1:]:
+    for line in content[5:]:
         pair = line.split()
         if int(pair[0]) not in v_to:
             v_to[int(pair[0])]=[]
         v_to[int(pair[0])].append(int(pair[1]))
 
-
     l = []
+    mark = []
     for item in v_to:
         # print(item, v_to[item])
         els = [list(x) for x in itertools.combinations(v_to[item], 2)]
@@ -33,12 +34,57 @@ def main():
                     mat[it[1]] = 1
                     l.append(mat)
 
-    # print len(l)
-    # print l[:10]
-    for row in l:
-        for ele in row:
-            print ele,
-        print ""
+                    sub = [item, it[0], it[1]]
+                    mark.append(sub)
+
+    #print len(l)
+    #print mark
+
+    set_list = []
+    for row in mark:
+        find = 0
+        for s in set_list:
+            for it in row:
+                if it in s:
+                    s.update(row)
+                    find = 1
+                    break
+            if find == 1:
+                break
+        if find == 0:
+            # need a new set
+            d = set()
+            d.update(row)
+            set_list.append(d)
+
+
+    for i in range(0, len(set_list)):
+        for j in range(i+1, len(set_list)):
+            if len(set_list[i].intersection(set_list[j])) != 0 :
+                set_list[i] =  set_list[i].union(set_list[j])
+                set_list[j] = set()
+
+    set_list.sort(key=len, reverse=True)
+    #print set_list
+    new_n = len(set_list[0])
+    print('size of lcc is {}'.format(new_n))
+    lcc = []
+    lcc.append(list(set_list[0]))
+    print lcc
+    for i in range(len(l)):
+        if mark[i][0] in set_list[0]:
+            #print mark[i]
+            row = [l[i][j] for j in set_list[0]]
+            lcc.append(row)
+    #print lcc
+    print('number of hyperedges is {}'.format(len(lcc)-1))
+
+    with open('m6.csv','w') as f:
+        writer = csv.writer(f)
+        writer.writerows(lcc);
+        f.close()
+
+
 
 if __name__ == '__main__':
     main()
