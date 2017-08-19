@@ -2,3 +2,10 @@
 	Conductance is in line 44
 	Zhou's cut is in line 51
 
+
+2.RatioDCA is in “ComputeEigCleanHypergraph_NCut.m”
+	lambda initialization is in line 9
+	PDHG is in line 55, method is “mexInnerFISTAHypergraphVarTransform3”
+	paper algorithm line 5 is in line 69
+
+3.R_1(f^0) is computed in “mexEvalHypergraphObjVarTransform”
